@@ -1,5 +1,5 @@
 ## About React
-React is a client library which focuses on building the HTML DOM by using components.
+React is a client library written in Javascript which focuses on building the HTML DOM by using components.
 
 The components are Javascript functions (or classes, React support both approaches) that return JSX.
 
@@ -15,7 +15,7 @@ The virtual DOM is a representation of the actual UI that is kept in the compute
 and is synced with the actual DOM in the browser after the rendering of the components.
 The reason React will want to keep such virtual DOM and not just use the actual DOM is so if a change
 occurs in one of the components by any user action (like adding a new item to a list via a form) instead of rendering the entire UI in the browser all over again,
-React will compare the newly formed DOM based on the user interaction against the virtual DOM and will only change the part in the virtual DOM where the UI has changed, 
+React will compare the newly forme~~d DOM based on the user interaction against the virtual DOM and will only change the part in the virtual DOM where the UI has changed, 
 without re-rendering the entire page, which gives React the advantage of being very fast when used in dynamically-changing UIs on websites.
 
 
@@ -1110,4 +1110,69 @@ const ExpenseListContent = ({expenseItems}) => {
 }
 
 export default ExpenseListContent;
+```
+
+###
+<ins>Adding dynamic styles to elements</ins>
+
+Like HTML, sometime we need to add the ```style``` attribute to an element, instead of using classes or ids.
+
+In React, the process is similar but the syntax is a bit different. When applying a ```style``` attribute to an element,
+React will require an object instead of passing a string like in regular HTML (```<div style="height: 80%">```). 
+Instead, the syntax would look something like this:
+```javascript
+<div style={{height: "80%"}}></div>
+```
+
+Since React requires an object, it means that when applying a style we will need two sets of curly braces,
+One is for declaring some dynamic value to an attribute (as previously shown) and the second
+is the styles object, which can also be extracted to a variable instead.
+
+One more thing to note when using the ```style``` attribute in React,
+is that since we use an object syntax, some attribute names will not work when using them as plain object key. For example:
+
+```javascript
+<div style={{background-color: "80%"}}></div>
+```
+
+This is NOT a valid syntax since JS objects can not have any special characters such as ```-``` in the key name.
+
+There are two ways to solve this issue. We can either use a string as the key name:
+
+```javascript
+<div style={{"background-color": "80%"}}></div>
+```
+
+Or we can use the camelCase option which eliminates the use of special characters:
+
+```javascript
+<div style={{backgroundColor: "80%"}}></div>
+```
+
+We can see an example from our project. We added a Chart that will be showing some data and one of this chart's divs 
+require some dynamic styling that can't be set in the ```.css``` file since the value is based on data that we get from other components.
+
+So instead we use the ```style``` attribute and applying the height styling with a dynamic value:
+
+```javascript
+import './ChartBar.css';
+
+const ChartBar = ({key, value, maxValue, label}) => {
+    let barFillHeight = "0%";
+
+    if (maxValue > 0) {
+        barFillHeight = Math.round(value/maxValue) * 100 + "%";
+    }
+
+    return (
+        <div className="chart-bar">
+            <div className="chart-bar__inner">
+                <div className="chart-bar__fill" style={{height: barFillHeight}}></div>
+            </div>
+            <div className="chart-bar__label">{label}</div>
+        </div>
+    )
+}
+
+export default ChartBar;
 ```

@@ -5,7 +5,7 @@ import {useState} from "react";
 
 const DUMMY_EXPENSES = [
     {id: 'e1', title: 'Car Insurance', amount: 295.3, date: new Date(2022, 0, 10)},
-    {id: 'e2', title: 'House Insurance', amount: 1006.3, date: new Date(2022, 0, 10)},
+    {id: 'e2', title: 'House Insurance', amount: 1006.3, date: new Date(2022, 3, 10)},
     {id: 'e3', title: 'Life Insurance', amount: 189.3, date: new Date(2022, 0, 10)},
     {id: 'e4', title: 'Life Insurance', amount: 189.3, date: new Date(2021, 0, 10)}
 ]
